@@ -4,8 +4,25 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <RootNamespace>org.herbal3d.ragu</RootNamespace>
-    <StartupObject>org.herbal3d.ragu.Ragu</StartupObject>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <OutputPath>..\dist\</OutputPath>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>..\dist\</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\BuildDate.txt" />
+    <None Remove="Resources\GitCommit.txt" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\BuildDate.txt" />
+    <EmbeddedResource Include="Resources\GitCommit.txt" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.5.1" />
@@ -24,19 +41,8 @@
     <Reference Include="OpenMetaverse.StructuredData">
       <HintPath>..\libs\OpenMetaverse.StructuredData.dll</HintPath>
     </Reference>
-    <Reference Include="OpenMetaverseTypes">
-      <HintPath>..\libs\OpenMetaverseTypes.dll</HintPath>
-    </Reference>
-    <Reference Include="RSG.Promise">
-      <HintPath>..\libs\RSG.Promise.dll</HintPath>
-    </Reference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\BuildDate.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\GitCommit.txt" />
-  </ItemGroup>
+
   <ItemGroup>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
@@ -44,25 +50,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
+
   <ItemGroup>
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
-    <PreBuildEvent>echo %25date%25 %25time%25 &gt; "$(MSBuildProjectDirectory)\Resources\BuildDate.txt"
-git rev-parse HEAD &gt; "$(MSBuildProjectDirectory)\Resources\GitCommit.txt"</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(OS)' != 'Windows_NT'">
-    <PreBuildEvent>date &gt; "$(MSBuildProjectDirectory)\Resources\BuildDate.txt"
-git rev-parse HEAD &gt; "$(MSBuildProjectDirectory)\Resources\GitCommit.txt"</PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>..\dist\</OutputPath>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\dist\</OutputPath>
-  </PropertyGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(OS)' == 'Windows_NT'">
+    <Exec Command="echo %25date%25 %25time%25 &gt; &quot;$(MSBuildProjectDirectory)\Resources\BuildDate.txt&#xD;&#xA;git rev-parse HEAD &gt; &quot;$(MSBuildProjectDirectory)\Resources\GitCommit.txt&#xD;&#xA;" />
+  </Target>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(OS)' != 'Windows_NT'">
+    <Exec Command="date &gt; &quot;$(MSBuildProjectDirectory)\Resources\BuildDate.txt&#xD;&#xA;git rev-parse HEAD &gt; &quot;$(MSBuildProjectDirectory)\Resources\GitCommit.txt&#xD;&#xA;" />
+  </Target>
 
 </Project>

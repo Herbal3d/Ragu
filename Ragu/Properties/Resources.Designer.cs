@@ -39,7 +39,7 @@ namespace org.herbal3d.ragu.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Ragu.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("org.herbal3d.ragu.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,7 +61,7 @@ namespace org.herbal3d.ragu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sun 06/10/2018  9:21:23.05 
+        ///   Looks up a localized string similar to Fri 06/15/2018  9:37:01.81 
         ///.
         /// </summary>
         internal static string BuildDate {
@@ -71,7 +71,7 @@ namespace org.herbal3d.ragu.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to 128054c781ce5a330517836c44047ebb7fa11f38
+        ///   Looks up a localized string similar to b950bcb5c021170ce1000d75674e8d5fd79d1499
         ///.
         /// </summary>
         internal static string GitCommit {
