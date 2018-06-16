@@ -41,6 +41,9 @@
     <Reference Include="OpenMetaverse.StructuredData">
       <HintPath>..\libs\OpenMetaverse.StructuredData.dll</HintPath>
     </Reference>
+    <Reference Include="RSG.Promise">
+      <HintPath>..\libs\RSG.Promise.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

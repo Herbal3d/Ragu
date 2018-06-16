@@ -19,8 +19,28 @@ using System.Text;
 // Creates a web socket listener and waits for a Basil browser to connect.
 // Once connected, handles transport of datablocks.
 namespace org.herbal3d.ragu {
-    class BTransportWS {
+    public class BTransportWS : BTransport {
         public BTransportWS() {
+        }
+
+        public override void Close() {
+            throw new NotImplementedException();
+        }
+
+        public override bool isConnected() {
+            throw new NotImplementedException();
+        }
+
+        public override bool isDataAvailable() {
+            throw new NotImplementedException();
+        }
+
+        public override void Send(byte[] data) {
+            throw new NotImplementedException();
+        }
+
+        public override void SetRecieveCallback() {
+            throw new NotImplementedException();
         }
     }
 }
