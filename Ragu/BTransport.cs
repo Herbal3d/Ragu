@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Robert Adams
+// Copyright 2018 Robert Adams
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
@@ -20,8 +20,9 @@ namespace org.herbal3d.ragu {
         }
         public abstract void Close();
         public abstract void Send(byte[] data);
-        public abstract void SetRecieveCallback();
-        public abstract bool isDataAvailable();
-        public abstract bool isConnected();
+        public delegate byte[] ReceivedCallback();
+        public abstract void SetReceiveCallback(ReceivedCallback cb);
+        public abstract bool IsDataAvailable();
+        public abstract bool IsConnected();
     }
 }
