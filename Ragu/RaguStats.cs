@@ -17,13 +17,13 @@ using OMV = OpenMetaverse;
 using OMVR = OpenMetaverse.Rendering;
 
 namespace org.herbal3d.ragu {
-    public class RaguStats {
+    public class RaguStats : Monitored {
 
     #pragma warning disable 414
         private static readonly string _logHeader = "[Stats]";
     #pragma warning restore 414
 
-        public RaguStats() {
+        public RaguStats() : base() {
         }
 
     }

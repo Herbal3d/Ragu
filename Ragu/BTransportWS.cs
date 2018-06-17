@@ -20,7 +20,7 @@ using System.Text;
 // Once connected, handles transport of datablocks.
 namespace org.herbal3d.ragu {
     public class BTransportWS : BTransport {
-        public BTransportWS() {
+        public BTransportWS() : base() {
         }
 
         public override void Close() {

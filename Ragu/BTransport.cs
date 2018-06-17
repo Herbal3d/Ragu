@@ -15,8 +15,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace org.herbal3d.ragu {
-    public abstract class BTransport {
-        public BTransport() {
+    public abstract class BTransport : Monitored {
+        public BTransport() : base() {
         }
         public abstract void Close();
         public abstract void Send(byte[] data);
