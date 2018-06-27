@@ -62,7 +62,8 @@ namespace org.herbal3d.ragu {
         public void Start(string[] args) {
             Globals = new GlobalContext() {
                 parms = new RaguParams(),
-                log = new LoggerConsole(),
+                log = new LoggerMetaverse(),
+                // log = new LoggerConsole(),
                 // log = new LoggerLog4Net(),   // must use log4net because of libOMV
                 stats = new RaguStats()
             };

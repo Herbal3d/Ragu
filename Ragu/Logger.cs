@@ -10,9 +10,12 @@
 // limitations under the License.
 
 using System;
+using System.Reflection;
 
 // using NLog;
 using log4net;
+
+using OMV = OpenMetaverse;
 
 namespace org.herbal3d.ragu {
 
@@ -101,16 +104,46 @@ namespace org.herbal3d.ragu {
     }
     */
 
+    // Do logging using the log4net instance in LibreMetaverse/libOpenmetaverse
+    public class LoggerMetaverse : Logger {
+        private bool _quiet = false;
+        private bool _verbose = false;
+
+        public override void SetVerbose(bool val) {
+            _verbose = val;
+        }
+
+        public override void SetQuiet(bool val) {
+            _quiet = val;
+        }
+        public override void Log(string msg, params Object[] args) {
+            if (!_quiet) {
+                OMV.Logger.Log(String.Format(msg, args), OMV.Helpers.LogLevel.Info);
+            }
+        }
+
+        // Output the message if 'Verbose' is true
+        public override void DebugFormat(string msg, params Object[] args) {
+            if (!_quiet && _verbose) {
+                OMV.Logger.Log(String.Format(msg, args), OMV.Helpers.LogLevel.Debug);
+            }
+        }
+
+        public override void ErrorFormat(string msg, params Object[] args) {
+            OMV.Logger.Log(String.Format(msg, args), OMV.Helpers.LogLevel.Error);
+        }
+    }
+
     // Do logging with log4net
     public class LoggerLog4Net : Logger {
-        private static readonly ILog _log = LogManager.GetLogger("convoar");
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private bool _verbose = false;
         private bool _quiet = false;
         private log4net.Core.Level _oldLevel = log4net.Core.Level.Info;
 
         public override void SetVerbose(bool value) {
             _verbose = value;
-            var logHeir = (log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository();
+            var logHeir = (log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository(Assembly.GetCallingAssembly());
             if (_verbose) {
                 if (logHeir.Root.Level != log4net.Core.Level.Debug) {
                     _oldLevel = logHeir.Root.Level;
@@ -125,7 +158,7 @@ namespace org.herbal3d.ragu {
 
         public override void SetQuiet(bool val) {
             _quiet = val;
-            var logHeir = (log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository();
+            var logHeir = (log4net.Repository.Hierarchy.Hierarchy)LogManager.GetRepository(Assembly.GetCallingAssembly());
             if (_quiet) {
                 if (logHeir.Root.Level != log4net.Core.Level.Error) {
                     _oldLevel = logHeir.Root.Level;

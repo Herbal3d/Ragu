@@ -21,6 +21,7 @@ using System.Text;
 namespace org.herbal3d.ragu {
     public class BTransportWS : BTransport {
         public BTransportWS() : base() {
+            var connection = new ClientWebSocket();
         }
 
         public override void Close() {
