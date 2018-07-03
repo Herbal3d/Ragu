@@ -102,7 +102,16 @@ namespace org.herbal3d.ragu {
 
             // Verify parameters
 
-            // Make connection
+            // Create connection to the grid.
+            // If the connection fails, error reporting will cause this program to exit.
+            Tasker.NewTask(new GridConnection());
+
+            // Create listener that accepts connections from Basil viewers.
+            // This task will spin off BasilConnections that talk to the grid.
+            Tasker.NewTask(new BasilListener());
+
+            // Wait for everyone to finish
+            Tasker.WaitForAllCompletion();
         }
 
     }
